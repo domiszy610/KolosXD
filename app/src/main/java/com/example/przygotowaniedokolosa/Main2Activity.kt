@@ -1,14 +1,13 @@
 package com.example.przygotowaniedokolosa
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
@@ -26,6 +25,16 @@ class Main2Activity : AppCompatActivity() {
 
 
         listView.adapter = MyCustomAdapter(this, imiona_z_bazy)
+        listView.onItemClickListener = AdapterView.OnItemClickListener{
+            parent, view, i, l -> Toast.makeText(
+            applicationContext,
+            "Wybrano imię: " + imiona_z_bazy[i],
+            Toast.LENGTH_SHORT
+        ).show()
+            var int = Intent(this, Main3Activity::class.java)
+            int.putExtra("Imie", imiona_z_bazy[i])
+            startActivity(int)
+        }
     }
 }
 private class MyCustomAdapter(context: Context, Imiona : ArrayList<String>) : BaseAdapter(){
@@ -68,4 +77,7 @@ private class MyCustomAdapter(context: Context, Imiona : ArrayList<String>) : Ba
 //        textView.text = "HERERERE"
 //        return textView
     }
+
+
+
 }
