@@ -10,9 +10,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var dbH = MyDatabaseHelper(this)
 
         button1.setOnClickListener{
             var I = Intent(this, Main2Activity::class.java)
+            dbH.apply {
+                insert(etImiona.text.toString())
+            }
+
             startActivity(I)
         }
     }

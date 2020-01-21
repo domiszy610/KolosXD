@@ -18,22 +18,32 @@ class Main2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
         val listView = findViewById<ListView>(R.id.Lista)
+        var dbH = MyDatabaseHelper(this)
 
-        listView.adapter = MyCustomAdapter(this)
+        var imiona_z_bazy : ArrayList<String> = dbH.selectAll()
 
 
 
+
+        listView.adapter = MyCustomAdapter(this, imiona_z_bazy)
     }
 }
-private class MyCustomAdapter(context: Context) : BaseAdapter(){
+private class MyCustomAdapter(context: Context, Imiona : ArrayList<String>) : BaseAdapter(){
     private val mContext:Context
+    private var mImiona :ArrayList<String>
 
-    private val names = arrayListOf<String>("Dominika", "Monika", "Victoria")
+
+    private val names = arrayListOf<String>("Dominika", "Monika", "Victoria","Dominika", "Monika", "Victoria","Dominika", "Monika", "Victoria")
+
+
+
+
     init{
         mContext = context
+        mImiona = Imiona
     }
     override fun getCount(): Int {
-        return names.size
+        return mImiona.size
     }
 
     override fun getItemId(position: Int): Long {
@@ -48,7 +58,7 @@ private class MyCustomAdapter(context: Context) : BaseAdapter(){
         val rowM = layoutInflater.inflate(R.layout.row, parent, false)
         val textView1 =rowM.findViewById<TextView>(R.id.tv1)
         val textView2 =rowM.findViewById<TextView>(R.id.tv2)
-        textView1.text = names.get(position)
+        textView1.text = mImiona.get(position)
         textView2.text = "Wiersz numer: ${position}"
 
 
