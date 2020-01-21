@@ -3,6 +3,7 @@ package com.example.przygotowaniedokolosa
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -26,11 +27,13 @@ class Main2Activity : AppCompatActivity() {
 }
 private class MyCustomAdapter(context: Context) : BaseAdapter(){
     private val mContext:Context
+
+    private val names = arrayListOf<String>("Dominika", "Monika", "Victoria")
     init{
         mContext = context
     }
     override fun getCount(): Int {
-        return 5
+        return names.size
     }
 
     override fun getItemId(position: Int): Long {
@@ -41,8 +44,18 @@ private class MyCustomAdapter(context: Context) : BaseAdapter(){
         return "TEST STRING"
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val textView = TextView(mContext)
-        textView.text = "HERERERE"
-        return textView
+        val layoutInflater = LayoutInflater.from(mContext)
+        val rowM = layoutInflater.inflate(R.layout.row, parent, false)
+        val textView1 =rowM.findViewById<TextView>(R.id.tv1)
+        val textView2 =rowM.findViewById<TextView>(R.id.tv2)
+        textView1.text = names.get(position)
+        textView2.text = "Wiersz numer: ${position}"
+
+
+        return rowM
+
+//        val textView = TextView(mContext)
+//        textView.text = "HERERERE"
+//        return textView
     }
 }
